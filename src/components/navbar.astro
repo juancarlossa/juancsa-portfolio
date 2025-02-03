@@ -1,0 +1,53 @@
+---
+import { ThemeToggle } from "./theme-toggle.tsx";
+const navItems = [
+  { name: "Home", label: "home", link: "#home" },
+  { name: "Projects", label: "projects", link: "#projects" },
+  { name: "Resume", label: "resume", link: "/CV.pdf" },
+  //{ name: "About", label: "about", link: "/about" },
+];
+---
+
+<header
+  class="fixed top-0 z-10 flex items-center justify-center w-full mx-auto mt-2"
+>
+  <nav
+    class="flex px-3 text-sm font-medium rounded-full text-slate-200 justify-center items-center"
+  >
+    {
+      navItems.map((item) => (
+        <a
+          class="relative block px-2 py-2 transition hover:text-violet-800"
+          aria-label={item.label}
+          href={item.link}
+        >
+          {item.name}
+        </a>
+      ))
+    }
+    {
+      //<ThemeToggle client:idle />
+    }
+  </nav>
+</header>
+
+<style>
+  nav {
+    animation: nav-shadown 1s linear both;
+    animation-timeline: scroll();
+    animation-range: 0 100px;
+  }
+
+  nav {
+    @apply bg-slate-900/90;
+  }
+
+  @keyframes nav-shadown {
+    0% {
+      @apply dark:bg-gray-800/0 bg-white/0;
+    }
+    to {
+      @apply shadow-lg ring-1 backdrop-blur ring-white/10;
+    }
+  }
+</style>
