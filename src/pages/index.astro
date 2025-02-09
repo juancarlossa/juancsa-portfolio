@@ -6,6 +6,8 @@ import { ProjectList } from "@/components/project-list";
 import Navbar from "@/components/navbar.astro";
 import Footer from "@/components/footer.astro";
 import MailSmall from "@/components/icons/MailSmall.astro";
+import { H1, P } from "@/layouts/text-wrapper";
+import { HeroHighlight, Highlight } from "@/components/ui/hero-highlight";
 
 const projects = await getCollection("projects");
 ---
@@ -23,21 +25,19 @@ const projects = await getCollection("projects");
           alt="Juan Saugar"
           class="rounded-full size-16"
         />
-        <h1
-          class="py-1 text-5xl text-start my-5 flex font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-emerald-500"
-        >
-          I'm Juan, and this is my portfolio
-        </h1>
+        <H1
+          text="h1"
+          className="py-1 text-6xl text-start my-5 flex font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-emerald-500"
+          client:load
+        />
       </div>
 
       <div class="w-[30vw] flex flex-col gap-y-5 items-start">
-        <p
-          class="[&>strong]:text-violet-300 [&>strong]:font-bold text-lg line-clamp-3"
-        >
-          +2 years of experience.
-          <strong>Spanish IT Engineer living in Poland</strong>. Specialized in
-          Web & Unity Development. Feel free to watch my projects!
-        </p>
+        <P
+          text="description"
+          className="[&>strong]:text-violet-300 [&>strong]:font-bold text-lg line-clamp-3"
+          client:load
+        />
         <a
           href="mailto:juancarlossa.agullo@gmail.com"
           class="text-sm font-bold text-violet-100 hover:text-white transparent border-slate-900 border-2 rounded-full px-5 py-2 hover:bg-slate-900 transition
