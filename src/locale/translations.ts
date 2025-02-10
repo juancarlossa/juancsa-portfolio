@@ -13,7 +13,7 @@ export const translationsData = {
   description: {
     es: "+4 años de experiencia como desarrollador de React. Ingeniero de software viviendo en Polonia. Especializado en Desarrollo Web y Unity. ¡Bienvenido!",
     en: "+4 years of experience as React developer. Spanish IT Engineer living in Poland. Specialized in Web & Unity Development. Feel free to watch my projects!",
-    pl: "+4 lata doświadczenia jak programista Reacta. Hiszpański inżynier IT mieszkający w Polsce. Specjalizuje się w Web & Unity Development. Zapraszam do obejrzenia moich projektów!"
+    pl: "+4 lata doświadczenia jak programista Reacta. Hiszpański inżynier IT mieszkający w Polsce. Specjalizuję się w Web & Unity Development. Zapraszam do obejrzenia moich projektów!"
   },
   navItems: {
     es: ["Inicio", "Proyectos", "CV"],
