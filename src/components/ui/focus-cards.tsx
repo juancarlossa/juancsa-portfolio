@@ -14,12 +14,12 @@ export const Card = React.memo(
     hovered: number | null;
     setHovered: React.Dispatch<React.SetStateAction<number | null>>;
   }) => (
-    <div>
+    <div className="">
       <div
         onMouseEnter={() => setHovered(index)}
         onMouseLeave={() => setHovered(null)}
         className={cn(
-          "border-violet-600/50 rounded-sm relative bg-transparent dark:bg-neutral-900 overflow-hidden w-full h-full aspect-[16/9] transition-all duration-300 ease-out",
+          "border-violet-600 rounded-2xl relative bg-transparent dark:bg-neutral-900 overflow-hidden w-full h-full aspect-[16/9] transition-all duration-300 ease-out",
           hovered !== null && hovered !== index && "blur-sm scale-[0.98]"
         )}
       >

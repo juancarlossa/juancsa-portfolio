@@ -15,7 +15,7 @@ const langItems: LangProps[] = [
 
 export function LanguageButtons () {
   const $language = useStore(language)
-  const activeLanguage = 'bg-slate-600 hover:bg-slate-700 rounded px-2 py-1 font-semibold text-base'
+  const activeLanguage = 'bg-violet-300 hover:bg-violet-200 dark:bg-slate-600 dark:hover:bg-slate-700  rounded px-2 py-1 font-semibold text-base'
   const noActiveLanguage = 'rounded px-2 py-1 font-semibold text-base'
 
   function changeLanguage (label: Language) {

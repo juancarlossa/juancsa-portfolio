@@ -1,4 +1,7 @@
+import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import { useTranslations } from "@/locale/translations";
+import { language } from "@/stores/language";
+import { useStore } from "@nanostores/react";
 
 interface TextProps {
   text: string,
@@ -8,7 +11,12 @@ interface TextProps {
 function P ({ text, className }: TextProps) {
   const translate = useTranslations()
 
-  return (
+  if (text === "description") {
+    return (
+      <TextGenerateEffect words={translate("description")} />
+    )
+  }
+  else return (
     <p className={className}>{translate(text)}</p>
   )
 }
