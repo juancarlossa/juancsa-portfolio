@@ -1,7 +1,7 @@
 
 import { useTranslations } from "@/locale/translations";
 
-export function NavItems () {
+export function NavItems() {
   const translate = useTranslations();
   const navItems = [
     { name: translate("navItems", 0), label: "home", link: "#home" },
@@ -16,7 +16,7 @@ export function NavItems () {
         navItems.map((item, i) => (
           <a
             key={i}
-            className="relative block px-4 transition hover:text-violet-800"
+            className="relative block px-4 transition hover:text-violet-800 lg:pb-0 pb-2"
             aria-label={item.label}
             href={item.link}
           >

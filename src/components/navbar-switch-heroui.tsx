@@ -41,39 +41,60 @@ export const SunIcon = (props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>
   );
 };
 
-export function SwitchHeroUI () {
-  const [isDarkMode, setIsDarkMode] = useState(true); // Estado para controlar el switch
+export function SwitchHeroUI() {
+  const [isDarkMode, setIsDarkMode] = useState(true);
 
   useEffect(() => {
-    // Al montar, lee la preferencia de localStorage y actualiza el estado
-    const storedTheme = localStorage.getItem("theme");
-    if (storedTheme === "dark") {
-      setIsDarkMode(true);
-    }
-  }, []);
-
-  useEffect(() => {
-    // Cuando isDarkMode cambia, actualiza localStorage y la clase 'dark'
+    // Apply theme class to document
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
     } else {
       document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
     }
   }, [isDarkMode]);
 
   const toggleMode = () => {
-    setIsDarkMode(!isDarkMode); // Actualiza el estado al hacer click
+    setIsDarkMode(!isDarkMode);
   };
+
   return (
-    <Switch
-      defaultSelected
-      onValueChange={toggleMode}
-      color="success"
-      endContent={<SunIcon />}
-      size="lg"
-      startContent={<MoonIcon />}
-    />
+    <button
+      onClick={toggleMode}
+      className={`
+        relative inline-flex items-center h-8 w-16 rounded-full
+        transition-all duration-200 ease-in-out
+        
+        ${isDarkMode
+          ? 'bg-green-500 hover:bg-green-700'
+          : 'bg-violet-200 hover:bg-violet-200'
+        }
+      `}
+      role="switch"
+      aria-checked={isDarkMode}
+      aria-label="Toggle dark mode"
+    >
+      {/* Track icons */}
+      <div className="absolute left-2 top-1/2 transform -translate-y-1/2">
+        <MoonIcon
+          className={`w-4 h-4 transition-opacity duration-200 ${isDarkMode ? 'text-black opacity-100' : 'text-gray-500 opacity-50'
+            }`}
+        />
+      </div>
+      <div className="absolute right-2 top-1/2 transform -translate-y-1/2">
+        <SunIcon
+          className={`w-4 h-4 transition-opacity duration-200 ${!isDarkMode ? 'text-yellow-600 opacity-100' : 'text-gray-400 opacity-50'
+            }`}
+        />
+      </div>
+
+      {/* Thumb */}
+      <div
+        className={`
+          absolute top-1 w-6 h-6 bg-white rounded-full shadow-md
+          transform transition-transform duration-200 ease-in-out
+          ${isDarkMode ? 'translate-x-9' : 'translate-x-1'}
+        `}
+      />
+    </button>
   );
 }

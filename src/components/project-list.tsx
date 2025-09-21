@@ -3,11 +3,11 @@ import type { Project } from "@/types/project";
 import { useState } from "react";
 import { GlowingEffect } from "./ui/glowing-effect";
 
-export function ProjectList ({ projects }: { projects: Project[] }) {
+export function ProjectList({ projects }: { projects: Project[] }) {
   const [hovered, setHovered] = useState<number | null>(null);
 
   return (
-    <section id="projects" className="grid grid-cols-3 justify-center w-full gap-5">
+    <section id="projects" className="flex flex-col lg:grid lg:grid-cols-3 justify-center w-full gap-5">
       {projects
         .sort((a, b) => a.index - b.index)
         .map((project) => (
