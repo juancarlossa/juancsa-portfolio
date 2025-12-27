@@ -1,0 +1,249 @@
+---
+import "@/styles/globals.css";
+import Layout from "../../layouts/Layout.astro";
+import { HeroHighlightGradient } from "@/components/ui/hero-highlight-gradient";
+---
+
+<Layout title="Amorcitez">
+    <HeroHighlightGradient client:load>
+        <main
+            class="flex flex-col items-center justify-center h-screen text-white px-4"
+        >
+            <div
+                class="text-center w-full max-w-4xl py-16 px-6 lg:px-16 rounded-2xl relative overflow-hidden"
+            >
+                <video
+                    autoplay
+                    loop
+                    muted
+                    playsinline
+                    class="absolute inset-0 w-full h-full object-cover rounded-2xl"
+                >
+                    <source
+                        src="/mirpatillos/mirpatillos.mp4"
+                        type="video/mp4"
+                    />
+                </video>
+                <div
+                    class="absolute inset-0 bg-gradient-to-r from-cyan-500/90 to-purple-600/90 rounded-2xl"
+                >
+                </div>
+                <div class="relative z-10">
+                    <h1 class="text-2xl md:text-5xl font-bold mb-12">
+                        🍀 Янчик 👫 Хуанчик 🍀
+                    </h1>
+
+                    <div id="inputContainer" class="mb-12 hidden space-y-6">
+                        <div>
+                            <label for="targetDate" class="block text-xl mb-4"
+                                >Selecciona la fecha objetivo:</label
+                            >
+                            <input
+                                type="datetime-local"
+                                id="targetDate"
+                                class="px-6 py-3 text-lg rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-white/50 w-full"
+                            />
+                        </div>
+                        <div>
+                            <label for="customText" class="block text-xl mb-4"
+                                >Texto personalizado:</label
+                            >
+                            <input
+                                type="text"
+                                id="customText"
+                                placeholder="Ej: Международный аэропорт Внуково"
+                                class="px-6 py-3 text-lg rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/50 w-full"
+                            />
+                        </div>
+                    </div>
+
+                    <div
+                        id="countdown"
+                        class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8"
+                    >
+                        <div
+                            class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-white/20 transition-all duration-300 hover:scale-105 hover:bg-white/20 hover:border-white/40 hover:shadow-lg hover:shadow-purple-500/50 cursor-pointer"
+                        >
+                            <div
+                                id="days"
+                                class="text-5xl md:text-7xl font-bold mb-2"
+                            >
+                                00
+                            </div>
+                            <div
+                                class="text-lg md:text-xl uppercase tracking-wider"
+                            >
+                                Días
+                            </div>
+                        </div>
+                        <div
+                            class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-white/20 transition-all duration-300 hover:scale-105 hover:bg-white/20 hover:border-white/40 hover:shadow-lg hover:shadow-blue-500/50 cursor-pointer"
+                        >
+                            <div
+                                id="hours"
+                                class="text-5xl md:text-7xl font-bold mb-2"
+                            >
+                                00
+                            </div>
+                            <div
+                                class="text-lg md:text-xl uppercase tracking-wider"
+                            >
+                                Horas
+                            </div>
+                        </div>
+                        <div
+                            class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-white/20 transition-all duration-300 hover:scale-105 hover:bg-white/20 hover:border-white/40 hover:shadow-lg hover:shadow-indigo-500/50 cursor-pointer"
+                        >
+                            <div
+                                id="minutes"
+                                class="text-5xl md:text-7xl font-bold mb-2"
+                            >
+                                00
+                            </div>
+                            <div
+                                class="text-lg md:text-xl uppercase tracking-wider"
+                            >
+                                Minutos
+                            </div>
+                        </div>
+                        <div
+                            class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-white/20 transition-all duration-300 hover:scale-105 hover:bg-white/20 hover:border-white/40 hover:shadow-lg hover:shadow-pink-500/50 cursor-pointer"
+                        >
+                            <div
+                                id="seconds"
+                                class="text-5xl md:text-7xl font-bold mb-2"
+                            >
+                                00
+                            </div>
+                            <div
+                                class="text-lg md:text-xl uppercase tracking-wider"
+                            >
+                                Segundos
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        id="customTextDisplay"
+                        class="text-xl md:text-2xl mt-8 text-white/80 italic"
+                    >
+                        Аэропорт Барахас, Мадрид, Еспанита
+                    </div>
+                </div>
+            </div>
+
+            <div class="fixed bottom-8 right-8 group">
+                <button
+                    id="settingsBtn"
+                    class="bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white p-4 rounded-full border border-white/20 transition-all duration-300 opacity-0 group-hover:opacity-100 focus:opacity-100"
+                    aria-label="Configurar fecha"
+                >
+                    Edit
+                </button>
+            </div>
+        </main>
+    </HeroHighlightGradient>
+</Layout>
+
+<script>
+    let countdownInterval: number;
+
+    function updateCountdown() {
+        const targetDateInput = document.getElementById(
+            "targetDate",
+        ) as HTMLInputElement;
+        const targetDate = new Date(targetDateInput.value).getTime();
+
+        if (!targetDateInput.value || isNaN(targetDate)) {
+            return;
+        }
+
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+
+        if (distance < 0) {
+            clearInterval(countdownInterval);
+            document.getElementById("days")!.textContent = "00";
+            document.getElementById("hours")!.textContent = "00";
+            document.getElementById("minutes")!.textContent = "00";
+            document.getElementById("seconds")!.textContent = "00";
+            return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor(
+            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+        );
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("days")!.textContent = String(days).padStart(
+            2,
+            "0",
+        );
+        document.getElementById("hours")!.textContent = String(hours).padStart(
+            2,
+            "0",
+        );
+        document.getElementById("minutes")!.textContent = String(
+            minutes,
+        ).padStart(2, "0");
+        document.getElementById("seconds")!.textContent = String(
+            seconds,
+        ).padStart(2, "0");
+    }
+
+    function startCountdown() {
+        clearInterval(countdownInterval);
+        updateCountdown();
+        countdownInterval = setInterval(
+            updateCountdown,
+            1000,
+        ) as unknown as number;
+    }
+
+    document
+        .getElementById("targetDate")
+        ?.addEventListener("change", startCountdown);
+
+    const savedDate = localStorage.getItem("countdownTargetDate");
+    if (savedDate) {
+        const targetDateInput = document.getElementById(
+            "targetDate",
+        ) as HTMLInputElement;
+        targetDateInput.value = savedDate;
+        startCountdown();
+    }
+
+    document.getElementById("targetDate")?.addEventListener("change", (e) => {
+        const target = e.target as HTMLInputElement;
+        localStorage.setItem("countdownTargetDate", target.value);
+    });
+
+    const settingsBtn = document.getElementById("settingsBtn");
+    const inputContainer = document.getElementById("inputContainer");
+    const customTextInput = document.getElementById(
+        "customText",
+    ) as HTMLInputElement;
+    const customTextDisplay = document.getElementById("customTextDisplay");
+
+    settingsBtn?.addEventListener("click", () => {
+        inputContainer?.classList.toggle("hidden");
+    });
+
+    function updateCustomText() {
+        const text = customTextInput?.value || "";
+        if (customTextDisplay) {
+            customTextDisplay.textContent = text;
+        }
+        localStorage.setItem("countdownCustomText", text);
+    }
+
+    customTextInput?.addEventListener("input", updateCustomText);
+
+    const savedText = localStorage.getItem("countdownCustomText");
+    if (savedText && customTextInput && customTextDisplay) {
+        customTextInput.value = savedText;
+        customTextDisplay.textContent = savedText;
+    }
+</script>

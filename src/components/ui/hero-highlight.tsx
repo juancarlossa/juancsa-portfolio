@@ -14,7 +14,7 @@ export const HeroHighlight = ({
   let mouseX = useMotionValue(0);
   let mouseY = useMotionValue(0);
 
-  function handleMouseMove ({
+  function handleMouseMove({
     currentTarget,
     clientX,
     clientY,
