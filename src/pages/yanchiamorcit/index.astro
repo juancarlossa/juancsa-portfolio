@@ -149,15 +149,7 @@ import { HeroHighlightGradient } from "@/components/ui/hero-highlight-gradient";
     let countdownInterval: number;
 
     function updateCountdown() {
-        const targetDateInput = document.getElementById(
-            "targetDate",
-        ) as HTMLInputElement;
-        const targetDate = new Date(targetDateInput.value).getTime();
-
-        if (!targetDateInput.value || isNaN(targetDate)) {
-            return;
-        }
-
+        const targetDate = new Date("2026-01-17T12:00").getTime();
         const now = new Date().getTime();
         const distance = targetDate - now;
 
@@ -202,23 +194,19 @@ import { HeroHighlightGradient } from "@/components/ui/hero-highlight-gradient";
         ) as unknown as number;
     }
 
-    document
-        .getElementById("targetDate")
-        ?.addEventListener("change", startCountdown);
-
-    const savedDate = localStorage.getItem("countdownTargetDate");
-    if (savedDate) {
-        const targetDateInput = document.getElementById(
-            "targetDate",
-        ) as HTMLInputElement;
-        targetDateInput.value = savedDate;
-        startCountdown();
+    const targetDateInput = document.getElementById(
+        "targetDate",
+    ) as HTMLInputElement;
+    if (targetDateInput) {
+        targetDateInput.value = "2026-01-17T12:00";
     }
 
     document.getElementById("targetDate")?.addEventListener("change", (e) => {
         const target = e.target as HTMLInputElement;
-        localStorage.setItem("countdownTargetDate", target.value);
+        startCountdown();
     });
+
+    startCountdown();
 
     const settingsBtn = document.getElementById("settingsBtn");
     const inputContainer = document.getElementById("inputContainer");
@@ -236,14 +224,7 @@ import { HeroHighlightGradient } from "@/components/ui/hero-highlight-gradient";
         if (customTextDisplay) {
             customTextDisplay.textContent = text;
         }
-        localStorage.setItem("countdownCustomText", text);
     }
 
     customTextInput?.addEventListener("input", updateCustomText);
-
-    const savedText = localStorage.getItem("countdownCustomText");
-    if (savedText && customTextInput && customTextDisplay) {
-        customTextInput.value = savedText;
-        customTextDisplay.textContent = savedText;
-    }
 </script>
