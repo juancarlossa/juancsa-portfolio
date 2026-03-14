@@ -6,9 +6,9 @@ import { JuankSetup } from "./Juank";
 import { GamingSetup } from "./GamingSetup";
 
 
-export function FirstScene({ height = "70vh", width = "70vw" }: { height?: string; width?: string }) {
+export function FirstScene() {
   return (
-    <div style={{ height, width }} className="flex justify-center items-center border border-indigo-500">
+    <div className="lg:h-[80vh] lg:w-[50vw] h-[50vh] w-[100vw] flex justify-center items-center border border-indigo-500">
       <Canvas
         camera={{ position: [0, 0, 3], fov: 45 }}
         dpr={[1, 1.5]}

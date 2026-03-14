@@ -105,7 +105,7 @@ export function ProjectList({ projects }: { projects: Project[] }) {
       {/* Animated bento grid */}
       <section
         id="projects"
-        className="grid grid-cols-4 gap-2 auto-rows-[200px] px-20"
+        className="lg:grid lg:grid-cols-4 gap-2 lg:auto-rows-[200px] lg:px-20 px-5 flex flex-col"
       >
         <AnimatePresence mode="popLayout">
           {filtered.map((project, i) => {

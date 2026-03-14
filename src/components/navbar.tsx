@@ -74,7 +74,7 @@ export function Navbar() {
         </nav>
 
         {/* NAV MOBILE */}
-        <nav className="lg:hidden pt-4 pb-3 w-full">
+        <nav className="lg:hidden pt-4 pb-3 px-5 w-full">
           <div className="flex justify-between items-center">
             {/* Logo */}
             <div className="flex font-extralight">
@@ -131,12 +131,6 @@ export function Navbar() {
         <div className="flex flex-col h-full">
           {/* Sidebar Header */}
           <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
-            <div className="flex items-center space-x-3">
-              <div className="flex border border-violet-500 px-1 rounded-full size-10 justify-center items-center">
-                <p className="font-semibold">J</p>
-              </div>
-              <span className="text-xl font-semibold">Menu</span>
-            </div>
             <button
               onClick={() => setIsMobileMenuOpen(false)}
               className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
@@ -152,13 +146,18 @@ export function Navbar() {
           <div className="flex-1 px-6 py-8 space-y-8">
 
             {/* Navigation Items */}
-
-            <div>
-              <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4">
-                Navigation
-              </h3>
-              <NavItems />
-            </div>
+            <ul>
+              {navSubItems.map((item, index) => (
+                <li key={index}>
+                  <a
+                    href={item.href}
+                    className="block py-2 text-gray-700 dark:text-gray-300 hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
 
             {/* Language and Theme */}
             <div className="space-y-6">
