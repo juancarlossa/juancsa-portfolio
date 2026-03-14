@@ -31,9 +31,7 @@ const GooeyNav: React.FC<GooeyNavProps> = ({
   const navRef = useRef<HTMLUListElement>(null);
   const filterRef = useRef<HTMLSpanElement>(null);
   const textRef = useRef<HTMLSpanElement>(null);
-  const savedLang = typeof window !== "undefined"
-    ? localStorage.getItem("language")
-    : null;
+  const savedLang = 'en';
 
   const defaultIndex = items.findIndex(i => i.label === savedLang);
 
