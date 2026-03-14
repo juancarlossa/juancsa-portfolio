@@ -23,8 +23,8 @@ export const GlowySpotlightWrapper: React.FC<GlowySpotlightWrapperProps> = ({
       if (wrapperRef.current) {
         const rect = wrapperRef.current.getBoundingClientRect();
         setMousePosition({
-          x: event.clientX - rect.left,
-          y: event.clientY - rect.top,
+          x: event.clientX,
+          y: event.clientY,
         });
       }
     };
@@ -42,51 +42,74 @@ export const GlowySpotlightWrapper: React.FC<GlowySpotlightWrapperProps> = ({
   }, []);
 
   useEffect(() => {
-    const wrapper = wrapperRef.current;
-    if (!wrapper) return;
+    let animationFrame: number;
 
-    const gridItems = wrapper.querySelectorAll('.grid-item');
-    gridItems.forEach((item) => {
-      const rect = item.getBoundingClientRect();
-      const itemCenter = {
-        x: rect.left + rect.width / 2,
-        y: rect.top + rect.height / 2,
-      };
+    const update = () => {
+      const wrapper = wrapperRef.current;
+      if (!wrapper) return;
 
-      const distance = Math.sqrt(
-        Math.pow(mousePosition.x - itemCenter.x, 2) +
-        Math.pow(mousePosition.y - itemCenter.y, 2)
-      );
+      const gridItems = wrapper.querySelectorAll('.grid-item');
 
-      const maxDistance = Math.sqrt(
-        Math.pow(rect.width / 2 + gridGap, 2) +
-        Math.pow(rect.height / 2 + gridGap, 2)
-      );
+      gridItems.forEach((item) => {
+        const rect = item.getBoundingClientRect();
+        const itemCenterX = rect.left + rect.width / 2;
+        const itemCenterY = rect.top + rect.height / 2;
 
-      const intensity = Math.max(0, 1 - distance / maxDistance);
+        const distance = Math.hypot(
+          mousePosition.x - itemCenterX,
+          mousePosition.y - itemCenterY
+        );
 
-      (item as HTMLElement).style.setProperty('--glow-intensity', intensity.toString());
-    });
+        const maxDistance = Math.hypot(
+          rect.width / 2 + gridGap,
+          rect.height / 2 + gridGap
+        );
+
+        const intensity = Math.max(0, 1 - distance / maxDistance);
+
+        (item as HTMLElement).style.setProperty(
+          '--glow-intensity',
+          intensity.toString()
+        );
+      });
+    };
+
+    animationFrame = requestAnimationFrame(update);
+
+    return () => cancelAnimationFrame(animationFrame);
   }, [mousePosition, gridGap]);
 
   return (
-    <div className={`relative ${className}`}>
+    <>
       <div
-        ref={wrapperRef}
-        className="relative z-10"
+        className="pointer-events-none absolute inset-0 z-0 blur-[120px] opacity-40 transition-opacity duration-300"
         style={{
-          backgroundImage: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(${glowColor}, 0.1) 0%, rgba(${glowColor}, 0) 50%)`,
-          '--glow-color': glowColor,
-        } as React.CSSProperties}
-      >
-        {children}
-      </div>
-      <div
-        className="pointer-events-none absolute inset-0 z-20"
-        style={{
-          background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(${glowColor}, 0.1) 0%, rgba(${glowColor}, 0) 15%)`,
+          background: `radial-gradient(
+            circle at ${mousePosition.x}px ${mousePosition.y}px,
+            rgba(${glowColor}, 0.6) 0%,
+            rgba(${glowColor}, 0) 70%
+          )`,
         }}
       />
-    </div>
+
+      {/* Glow principal suave */}
+      <div
+        className="pointer-events-none absolute inset-0 z-10 blur-2xl transition-opacity duration-200"
+        style={{
+          background: `radial-gradient(
+            circle at ${mousePosition.x}px ${mousePosition.y}px,
+            rgba(${glowColor}, 0.4) 0%,
+            rgba(${glowColor}, 0.2) 30%,
+            rgba(${glowColor}, 0.1) 55%,
+            rgba(${glowColor}, 0) 85%
+          )`,
+        }}
+      />
+
+      {/* Contenido */}
+      <div className="relative z-20">
+        {children}
+      </div>
+    </>
   );
 };

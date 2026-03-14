@@ -10,6 +10,7 @@ const projects = defineCollection({
       github: z.string().url(),
       source: z.string().url().optional(),
     }),
+    category: z.array(z.enum(["React", "Spring Boot", "Unity"])),
   }),
 })
 

@@ -1,5 +1,4 @@
 import typography from "@tailwindcss/typography";
-const { heroui } = require("@heroui/react");
 
 const svgToDataUri = require("mini-svg-data-uri");
 const {
@@ -11,7 +10,6 @@ export default {
   darkMode: "class",
   content: [
     "./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}",
-    "./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
@@ -24,9 +22,9 @@ export default {
     },
   },
   plugins: [
+    require('lightswind/plugin'),
     require("tailwindcss-animate"),
     typography,
-    heroui(),
     addVariablesForColors,
     function ({ matchUtilities, theme }) {
       matchUtilities(

@@ -1,0 +1,50 @@
+---
+import GooeyNav from "@/components/GooeyNav";
+import { DarkVeilReact } from "../../components/DarkVeilReact";
+import "@/styles/globals.css";
+import type { Language } from "@/locale/translations";
+import CardNav from "@/components/CardNav.jsx";
+const langItems: { name: string; label: Language }[] = [
+    { name: "ES", label: "es" },
+    { name: "EN", label: "en" },
+    { name: "PL", label: "pl" },
+];
+const items = [
+    {
+        label: "About",
+        bgColor: "#0D0716",
+        textColor: "#fff",
+    },
+    {
+        label: "Projects",
+        bgColor: "#170D27",
+        textColor: "#fff",
+        links: [
+            { label: "Featured", ariaLabel: "Featured Projects" },
+            { label: "Case Studies", ariaLabel: "Project Case Studies" },
+        ],
+    },
+    {
+        label: "Contact",
+        bgColor: "#271E37",
+        textColor: "#fff",
+        links: [
+            { label: "Email", ariaLabel: "Email us" },
+            { label: "Twitter", ariaLabel: "Twitter" },
+            { label: "LinkedIn", ariaLabel: "LinkedIn" },
+        ],
+    },
+];
+---
+
+<CardNav
+    client:idle
+    logo={null}
+    logoAlt="Company Logo"
+    items={items}
+    baseColor="#fff"
+    menuColor="#000"
+    buttonBgColor="#111"
+    buttonTextColor="#fff"
+    ease="power3.out"
+/>

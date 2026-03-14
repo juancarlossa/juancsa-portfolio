@@ -1,10 +1,79 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @layer base {
   :root {
-    --radius: 0.5rem
+    --radius: 0.1rem;
+
+    --color-1: #210e55;
+    --color-2: #210e55;
+    --color-3: #210e55;
+    --color-4: #210e55;
   }
+
+  .dark {
+    --radius: 0.1rem;
+    --color-1: #fff;
+    --color-2: #fff;
+    --color-3: #fff;
+    --color-4: #fff;
+  }
+
+  a,
+  button {
+    cursor: none !important;
+  }
+
+  main {
+    scroll-snap-type: y mandatory;
+    overflow-y: auto;
+  }
+
+  section {
+    scroll-snap-align: start;
+  }
+
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+
+    @apply text-slate-800 dark:text-slate-200 scroll-smooth;
+    font-family: "Onest Variable",
+      sans-serif;
+    font-weight: 300;
+    scroll-behavior: smooth !important;
+    prefers-color-scheme: dark;
+  }
+
+  h3 {
+    font-weight: 300;
+  }
+
+  body>div {
+    @apply container;
+  }
+
+
 }
 
+@layer utilities {
+  .bg-hero-dark {
+    background-image: radial-gradient(circle at 50% 30%,
+        #0F172A 0%,
+        /* centro más claro */
+        #0A0E1A 70%
+        /* bordes más oscuros */
+      );
+  }
 
+  .bg-hero-light {
+    background-image: radial-gradient(circle at 50% 30%,
+        #F8FAFC 0%,
+        /* centro más claro */
+        #E2E8F0 70%
+        /* bordes suaves */
+      );
+  }
+}

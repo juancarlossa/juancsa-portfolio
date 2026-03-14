@@ -5,7 +5,8 @@ description: Se mamo
 img: praca-inz.jpg
 url: 
   github: https://github.com/juancarlossa/praca-inzynierska.git
-
+  source: https://github.com/juancarlossa/praca-inzynierska.git
+category: ["React", "Spring Boot"]
 ---
 
 Probando lorem ipsun

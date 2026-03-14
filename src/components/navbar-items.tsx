@@ -1,5 +1,7 @@
 
 import { useTranslations } from "@/locale/translations";
+import StaggeredMenu from "./StaggeredMenu";
+import { LanguageButtons } from "./navbar-language-buttons";
 
 export function NavItems() {
   const translate = useTranslations();
@@ -11,19 +13,26 @@ export function NavItems() {
   ];
 
   return (
-    <>
-      {
-        navItems.map((item, i) => (
-          <a
-            key={i}
-            className="relative block px-4 transition hover:text-violet-800 lg:pb-0 pb-2"
-            aria-label={item.label}
-            href={item.link}
-          >
-            {item.name}
-          </a>
-        ))
-      }
-    </>
+    <div className="overflow-x-hidden w-full" style={{ height: '100vh', background: 'transparent' }}>
+
+      <StaggeredMenu
+        position="right"
+        items={navItems.map((item) => ({
+          label: item.label,
+          link: item.link,
+          ariaLabel: item.label,
+        }))}
+        socialItems={[]}
+        displaySocials
+        displayItemNumbering={true}
+        menuButtonColor="#ffffff"
+        openMenuButtonColor="#000000"
+        changeMenuColorOnOpen={true}
+        colors={['#B19EEF', '#5227FF']}
+        accentColor="#5227FF"
+        onMenuOpen={() => console.log('Menu opened')}
+        onMenuClose={() => console.log('Menu closed')}
+      />
+    </div>
   )
 }

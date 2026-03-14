@@ -1,5 +1,3 @@
-import { translate } from "@/locale/translations";
-import { Switch } from "@heroui/react";
 import { useEffect, useState, type SVGProps } from "react";
 import type { JSX } from "react/jsx-runtime";
 

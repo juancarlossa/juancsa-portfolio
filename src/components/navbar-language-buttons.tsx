@@ -13,12 +13,12 @@ const langItems: LangProps[] = [
   { name: "PL", label: "pl" },
 ];
 
-export function LanguageButtons () {
+export function LanguageButtons() {
   const $language = useStore(language)
   const activeLanguage = 'bg-violet-300 hover:bg-violet-200 dark:bg-slate-600 dark:hover:bg-slate-700  rounded px-2 py-1 font-semibold text-base'
   const noActiveLanguage = 'rounded px-2 py-1 font-semibold text-base'
 
-  function changeLanguage (label: Language) {
+  function changeLanguage(label: Language) {
     language.set(label)
     localStorage.setItem('language', label)
     console.log(language.value)
@@ -28,7 +28,6 @@ export function LanguageButtons () {
     <div className="flex gap-x-1">
       {
         langItems.map((item, index) => {
-
           return (
             <button key={index} onClick={() => changeLanguage(item.label)}>
               <div className={$language == item.label ? activeLanguage : noActiveLanguage}>
@@ -38,6 +37,7 @@ export function LanguageButtons () {
           );
         })
       }
+
     </div>
   )
 }

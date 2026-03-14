@@ -2,6 +2,8 @@ import { SwitchHeroUI } from "./navbar-switch-heroui.tsx";
 import { LanguageButtons } from "@/components/navbar-language-buttons.tsx";
 import { NavItems } from "@/components/navbar-items";
 import { useEffect, useState } from "react";
+import { Lamphome, type NavItem } from "./ui/lamphome.tsx";
+import type { Language } from "@/locale/translations.ts";
 
 
 export function Navbar() {
@@ -37,29 +39,38 @@ export function Navbar() {
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
+  const langItems: { name: string; label: Language, backgroundColor: string }[] = [
+    { name: "ES", label: "es", backgroundColor: "#0D0716" },
+    { name: "EN", label: "en", backgroundColor: "#170D27" },
+    { name: "PL", label: "pl", backgroundColor: "#271E37" },
+  ];
+  const navSubItems: NavItem[] = [
 
+    {
+      label: "Projects",
+      backgroundColor: "#3d2f55ff",
+      textColor: "#fff",
+      href: "#projects"
+    },
+    {
+      label: "Contact",
+      backgroundColor: "#5e4981ff",
+      textColor: "#fff",
+      links: [
+        { label: "Email", ariaLabel: "Email us", href: "mailto:juancarlossa.agullo@gmail.com" },
+        { label: "LinkedIn", ariaLabel: "LinkedIn", href: "https://www.linkedin.com/in/juancarlossa/" }
+      ],
+      href: "#contact"
+    }
+  ];
   return (
     <>
-      <header className="w-[95vw] lg:w-[50vw] mx-auto relative z-50">
+      <header className="w-full mx-auto relative z-50">
         {/* NAV DESKTOP */}
-        <nav className="hidden lg:grid grid-cols-3 justify-between pt-8 pb-5 items-center w-full">
-          {/* Logo */}
-          <div className="flex justify-start font-extralight">
-            <div className="flex border border-violet-500 px-1 rounded-full size-10 justify-center items-center hover:bg-violet-500 hover:text-white transition-colors cursor-pointer">
-              <p className="font-semibold">J</p>
-            </div>
-          </div>
+        <nav className="hidden lg:flex h-full justify-between items-start w-full">
+          <Lamphome navItems={langItems} navSubItems={navSubItems} />
 
-          {/* Items centro */}
-          <div className="flex justify-center items-center">
-            <NavItems />
-          </div>
 
-          {/* Botones derecha */}
-          <div className="flex gap-x-5 justify-end items-center">
-            <LanguageButtons />
-            <SwitchHeroUI />
-          </div>
         </nav>
 
         {/* NAV MOBILE */}

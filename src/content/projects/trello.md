@@ -6,7 +6,7 @@ img: trello.jpg
 url: 
   github: https://github.com/juancarlossa/trello-clone.git
   source: https://trello-clone-two-inky.vercel.app/
-
+category: ["React"]
 ---
 
 Probando lorem ipsun

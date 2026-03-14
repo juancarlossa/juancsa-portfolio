@@ -6,7 +6,7 @@ img: spotify.jpg
 url: 
   github: https://github.com/juancarlossa/spotify-clone.git
   source: https://juankfy.vercel.app/
-
+category: ["React"]
 ---
 
 Probando lorem ipsun

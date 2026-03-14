@@ -1,6 +1,8 @@
 ---
 import "@fontsource-variable/onest";
 import { ClientRouter } from "astro:transitions";
+import "@/styles/globals.css";
+
 interface Props {
   title: string;
 }
@@ -11,7 +13,18 @@ console.log("Layout.astro is being used!");
 ---
 
 <!doctype html>
-<html class="dark">
+<script>
+  if (
+    localStorage.theme === "dark" ||
+    (!("theme" in localStorage) &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches)
+  ) {
+    document.documentElement.classList.add("dark");
+  } else {
+    document.documentElement.classList.remove("dark");
+  }
+</script>
+<html>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -19,35 +32,8 @@ console.log("Layout.astro is being used!");
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <ClientRouter />
-    <script>
-      if (
-        localStorage.theme === "dark" ||
-        (!("theme" in localStorage) &&
-          window.matchMedia("(prefers-color-scheme: dark)").matches)
-      ) {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
-    </script>
   </head>
-  <body>
+  <body class="bg-hero-light dark:bg-hero-dark scroll-smooth">
     <slot />
-  </body><style>
-    html,
-    body {
-      margin: 0;
-      width: 100%;
-      @apply text-slate-800 bg-slate-200 dark:text-slate-200 dark:bg-slate-800  scroll-smooth;
-      font-family: "Onest Variable", sans-serif;
-      font-weight: 300;
-      prefers-color-scheme: dark;
-    }
-    h3 {
-      font-weight: 300;
-    }
-    body > div {
-      @apply container;
-    }
-  </style>
+  </body><style></style>
 </html>
